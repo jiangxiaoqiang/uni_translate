@@ -7,7 +7,11 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  uni_translate_client: ^0.0.1
+  uni_translate_client:
+    git:
+      path: packages/uni_translate_client
+      ref: master
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
   translation_engine_baidu:
     git:
       path: packages/translation_engine_baidu
