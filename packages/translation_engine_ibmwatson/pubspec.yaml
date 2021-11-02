@@ -9,7 +9,11 @@ environment:
 
 dependencies:
   http: any
-  uni_translate_client: ^0.0.1
+  uni_translate_client:
+    git:
+      path: packages/uni_translate_client
+      ref: master
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
 
 dev_dependencies:
   test: ^1.0.0
