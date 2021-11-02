@@ -9,23 +9,50 @@ environment:
 dependencies:
   uni_translate_client: ^0.0.1
   translation_engine_baidu:
-    path: ../translation_engine_baidu
+    git:
+      path: packages/translation_engine_baidu
+      ref: master
+      url: https://github.com/biyidev/uni_translate.git
   translation_engine_caiyun:
-    path: ../translation_engine_caiyun
+    git:
+      path: packages/translation_engine_caiyun
+      ref: master
+      url: https://github.com/biyidev/uni_translate.git
   translation_engine_cloudoptai:
-    path: ../translation_engine_cloudoptai
+    git:
+      path: packages/translation_engine_cloudoptai
+      ref: master
+      url: https://github.com/biyidev/uni_translate.git
   translation_engine_deepl:
-    path: ../translation_engine_deepl
+    git:
+      path: packages/translation_engine_deepl
+      ref: master
+      url: https://github.com/biyidev/uni_translate.git
   translation_engine_google:
-    path: ../translation_engine_google
+    git:
+      path: packages/translation_engine_google
+      ref: master
+      url: https://github.com/biyidev/uni_translate.git
   translation_engine_iciba:
-    path: ../translation_engine_iciba
+    git:
+      path: packages/translation_engine_iciba
+      ref: master
+      url: https://github.com/biyidev/uni_translate.git
   translation_engine_sogou:
-    path: ../translation_engine_sogou
+    git:
+      path: packages/translation_engine_sogou
+      ref: master
+      url: https://github.com/biyidev/uni_translate.git
   translation_engine_tencent:
-    path: ../translation_engine_tencent
+    git:
+      path: packages/translation_engine_tencent
+      ref: master
+      url: https://github.com/biyidev/uni_translate.git
   translation_engine_youdao:
-    path: ../translation_engine_youdao
+    git:
+      path: packages/translation_engine_youdao
+      ref: master
+      url: https://github.com/biyidev/uni_translate.git
 
 dev_dependencies:
   test: ^1.0.0
