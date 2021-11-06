@@ -15,6 +15,10 @@ dependencies:
       path: packages/uni_translate_client
       ref: master
       url: https://github.com/jiangxiaoqiang/uni_translate.git
+  wheel:
+    git:
+      url: https://github.com/jiangxiaoqiang/wheel.git
+      ref: main
 
 dev_dependencies:
   test: ^1.0.0

@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 import 'package:uni_translate_client/uni_translate_client.dart';
+import 'package:wheel/wheel.dart';
 
 const String kEngineTypeReddwarf = 'reddwarf';
 
@@ -42,35 +43,11 @@ class ReddwarfTranslationEngine extends TranslationEngine {
   @override
   Future<LookUpResponse> lookUp(LookUpRequest request) async {
     LookUpResponse lookUpResponse = LookUpResponse();
-
-    String q = request.word;
-    String input = q;
-    if (q.length > 20)
-      input = '${q.substring(0, 10)}${q.length}${q.substring(q.length - 10)}';
-
-    final curtime = (DateTime.now().millisecondsSinceEpoch ~/ 1000);
-    final salt = _md5("translation_engine_reddwarf");
-    final sign =
-        _sha256('$_optionAppKey$input$salt${curtime}$_optionAppSecret');
-
-    Uri uri = Uri.https(
-      'dict.poemhub.top',
-      '/api',
-      {
-        'q': request.word,
-        'from': request.sourceLanguage ?? 'auto',
-        'to': request.targetLanguage,
-        'appKey': _optionAppKey,
-        'salt': salt.toString(),
-        'sign': sign.toString(),
-        'signType': 'v3',
-        'curtime': '$curtime',
-      },
-    );
-
-    var response = await http.get(uri);
-    Map<String, dynamic> data = json.decode(utf8.decode(response.bodyBytes));
-
+    var response = await RestClient.postHttp("/dict/word/translate/v1", request);
+    if(!RestClient.respSuccess(response)){
+        return lookUpResponse;
+    }
+    var data = response.data;
     var query = data['query'];
     var translation = data['translation'];
     var basic = data['basic'];
