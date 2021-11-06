@@ -43,7 +43,12 @@ class ReddwarfTranslationEngine extends TranslationEngine {
   @override
   Future<LookUpResponse> lookUp(LookUpRequest request) async {
     LookUpResponse lookUpResponse = LookUpResponse();
-    var response = await RestClient.postHttp("/dict/word/translate/v1", request);
+    Map<String,String> req = {
+      'word': request.word,
+      'from': request.sourceLanguage,
+      'to': request.targetLanguage
+    };
+    var response = await RestClient.postHttp("/dict/word/translate/v1", req);
     if(!RestClient.respSuccess(response)){
         return lookUpResponse;
     }
