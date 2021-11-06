@@ -57,6 +57,11 @@ dependencies:
       path: packages/translation_engine_youdao
       ref: master
       url: https://github.com/biyidev/uni_translate.git
+  translation_engine_reddwarf:
+    git:
+      path: packages/translation_engine_reddwarf
+      ref: master
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
 
 dev_dependencies:
   test: ^1.0.0
