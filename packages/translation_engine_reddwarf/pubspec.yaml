@@ -1,0 +1,20 @@
+name: translation_engine_reddwarf
+description:
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  crypto: any
+  http: any
+  uni_translate_client:
+    git:
+      path: packages/uni_translate_client
+      ref: master
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
+
+dev_dependencies:
+  test: ^1.0.0
