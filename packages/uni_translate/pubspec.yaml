@@ -1,7 +1,7 @@
 name: uni_translate
 description: A universal translate client.
 version: 0.0.1
-homepage: https://github.com/biyidev/uni_translate/
+homepage: https://github.com/jiangxiaoqiang/uni_translate/
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -16,47 +16,47 @@ dependencies:
     git:
       path: packages/translation_engine_baidu
       ref: master
-      url: https://github.com/biyidev/uni_translate.git
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
   translation_engine_caiyun:
     git:
       path: packages/translation_engine_caiyun
       ref: master
-      url: https://github.com/biyidev/uni_translate.git
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
   translation_engine_cloudoptai:
     git:
       path: packages/translation_engine_cloudoptai
       ref: master
-      url: https://github.com/biyidev/uni_translate.git
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
   translation_engine_deepl:
     git:
       path: packages/translation_engine_deepl
       ref: master
-      url: https://github.com/biyidev/uni_translate.git
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
   translation_engine_google:
     git:
       path: packages/translation_engine_google
       ref: master
-      url: https://github.com/biyidev/uni_translate.git
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
   translation_engine_iciba:
     git:
       path: packages/translation_engine_iciba
       ref: master
-      url: https://github.com/biyidev/uni_translate.git
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
   translation_engine_sogou:
     git:
       path: packages/translation_engine_sogou
       ref: master
-      url: https://github.com/biyidev/uni_translate.git
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
   translation_engine_tencent:
     git:
       path: packages/translation_engine_tencent
       ref: master
-      url: https://github.com/biyidev/uni_translate.git
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
   translation_engine_youdao:
     git:
       path: packages/translation_engine_youdao
       ref: master
-      url: https://github.com/biyidev/uni_translate.git
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
   translation_engine_reddwarf:
     git:
       path: packages/translation_engine_reddwarf
