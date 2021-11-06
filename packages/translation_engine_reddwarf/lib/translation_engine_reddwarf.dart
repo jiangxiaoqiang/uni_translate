@@ -52,16 +52,16 @@ class ReddwarfTranslationEngine extends TranslationEngine {
     if(!RestClient.respSuccess(response)){
         return lookUpResponse;
     }
-    var data = response.data;
+    var data = response.data["result"];
     var query = data['query'];
-    var translation = data['translation'];
+    var translation = data['translations'];
     var basic = data['basic'];
     var returnPhrase = data['returnPhrase'];
     var tSpeakUrl = data['tSpeakUrl'];
 
     if (translation != null) {
       lookUpResponse.translations =
-          (translation as List).map((e) => TextTranslation(text: e)).toList();
+          (translation as List).map((e) => TextTranslation(text: e["text"])).toList();
       if (lookUpResponse.translations.length == 1) {
         lookUpResponse.translations[0].audioUrl = tSpeakUrl;
       }
