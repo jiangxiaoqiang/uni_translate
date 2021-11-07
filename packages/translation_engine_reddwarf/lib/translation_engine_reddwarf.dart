@@ -1,6 +1,7 @@
 library translation_engine_reddwarf;
 
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
@@ -61,12 +62,18 @@ class ReddwarfTranslationEngine extends TranslationEngine {
     var wordSentence = data["sentences"];
 
     if (wordSentence != null) {
-      lookUpResponse.sentences = (wordSentence as List).map((e) {
-        return WordSentence(
-          text: e['text'],
-          translations: [e['translations']],
+      List sentences = wordSentence as List;
+      var sens = new List.empty(growable: true);
+      sentences.forEach((element) {
+        Map ts = element["translations"];
+        List<String> weightData = ts.entries.map( (entry) => entry.value).toList();
+        var ws =  WordSentence(
+            text: element['text'],
+            translations: weightData,
         );
-      }).toList();
+        sens.add(ws);
+      });
+      lookUpResponse.sentences = sens;
     }
 
     if (translation != null) {
