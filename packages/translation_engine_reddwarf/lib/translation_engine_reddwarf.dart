@@ -64,7 +64,7 @@ class ReddwarfTranslationEngine extends TranslationEngine {
     if (wordSentence != null) {
       List sentences = wordSentence as List;
       if(sentences.length > 0) {
-        var sens = new List.empty(growable: true);
+        List<WordSentence> sens = new List.empty(growable: true);
         sentences.forEach((element) {
           List ts = element["translations"];
           List<String> weightData = ts.map((entry) => entry.toString())
