@@ -58,6 +58,16 @@ class ReddwarfTranslationEngine extends TranslationEngine {
     var basic = data['basic'];
     var returnPhrase = data['returnPhrase'];
     var tSpeakUrl = data['tSpeakUrl'];
+    var wordSentence = data["sentences"];
+
+    if (wordSentence != null) {
+      lookUpResponse.sentences = (wordSentence as List).map((e) {
+        return WordSentence(
+          text: e['text'],
+          translations: [e['translations']],
+        );
+      }).toList();
+    }
 
     if (translation != null) {
       lookUpResponse.translations =
