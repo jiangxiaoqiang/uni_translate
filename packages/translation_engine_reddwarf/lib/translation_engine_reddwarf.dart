@@ -60,6 +60,7 @@ class ReddwarfTranslationEngine extends TranslationEngine {
     var returnPhrase = data['returnPhrase'];
     var tSpeakUrl = data['tSpeakUrl'];
     var wordSentence = data["sentences"];
+    var definitions = data["definitions"];
 
     if (wordSentence != null) {
       List sentences = wordSentence as List;
@@ -76,6 +77,25 @@ class ReddwarfTranslationEngine extends TranslationEngine {
           sens.add(ws);
         });
         lookUpResponse.sentences = sens;
+      }
+    }
+
+    if (definitions != null) {
+      List definitionList = definitions as List;
+      if(definitionList.length > 0) {
+        List<WordDefinition> sens = new List.empty(growable: true);
+        definitionList.forEach((element) {
+          List ts = element["values"];
+          List<String> weightData = ts.map((entry) => entry.toString())
+              .toList();
+          var ws = WordDefinition(
+            type: element['type'],
+            name: element["name"],
+            values: weightData
+          );
+          sens.add(ws);
+        });
+        lookUpResponse.definitions = sens;
       }
     }
 
