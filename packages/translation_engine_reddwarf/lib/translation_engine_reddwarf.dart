@@ -63,17 +63,20 @@ class ReddwarfTranslationEngine extends TranslationEngine {
 
     if (wordSentence != null) {
       List sentences = wordSentence as List;
-      var sens = new List.empty(growable: true);
-      sentences.forEach((element) {
-        List ts = element["translations"];
-        List<String> weightData = ts.map( (entry) => entry["translations"]).toList();
-        var ws =  WordSentence(
+      if(sentences.length > 0) {
+        var sens = new List.empty(growable: true);
+        sentences.forEach((element) {
+          List ts = element["translations"];
+          List<String> weightData = ts.map((entry) => entry["translations"])
+              .toList();
+          var ws = WordSentence(
             text: element['text'],
             translations: weightData,
-        );
-        sens.add(ws);
-      });
-      lookUpResponse.sentences = sens;
+          );
+          sens.add(ws);
+        });
+        lookUpResponse.sentences = sens;
+      }
     }
 
     if (translation != null) {
