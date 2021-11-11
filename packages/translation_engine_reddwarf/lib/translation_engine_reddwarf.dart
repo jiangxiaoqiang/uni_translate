@@ -47,7 +47,7 @@ class ReddwarfTranslationEngine extends TranslationEngine {
   Future<LookUpResponse> lookUp(LookUpRequest request) async {
     LookUpResponse lookUpResponse = LookUpResponse();
     Map<String,String> req = {
-      'word': request.word,
+      'word': request.word.toLowerCase(),
       'from': request.sourceLanguage,
       'to': request.targetLanguage
     };
