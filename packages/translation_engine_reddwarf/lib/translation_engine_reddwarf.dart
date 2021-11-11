@@ -41,6 +41,8 @@ class ReddwarfTranslationEngine extends TranslationEngine {
     throw UnimplementedError();
   }
 
+  bool isNullable<T>() => null is T;
+
   @override
   Future<LookUpResponse> lookUp(LookUpRequest request) async {
     LookUpResponse lookUpResponse = LookUpResponse();
@@ -50,7 +52,7 @@ class ReddwarfTranslationEngine extends TranslationEngine {
       'to': request.targetLanguage
     };
     var response = await RestClient.postHttp("/dict/word/translate/v1", req);
-    if(!RestClient.respSuccess(response)){
+    if(!RestClient.respSuccess(response) || response.data["result"] == null || response.data["result"].toString().isEmpty){
         return lookUpResponse;
     }
     var data = response.data["result"];
