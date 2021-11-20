@@ -10,18 +10,18 @@ import 'models/word_tag.dart';
 
 class LookUpResponse extends TranslateResponse {
   String word; // 单词
-  String tip; // 提示
-  List<WordTag> tags; // 标签
-  List<WordDefinition> definitions; // 定义（基本释义）
-  List<WordPronunciation> pronunciations; // 发音
-  List<WordImage> images; // 图片
-  List<WordPhrase> phrases; // 短语
-  List<WordTense> tenses; // 时态
-  List<WordSentence> sentences; // 例句
+  String? tip; // 提示
+  List<WordTag>? tags; // 标签
+  List<WordDefinition>? definitions; // 定义（基本释义）
+  List<WordPronunciation>? pronunciations; // 发音
+  List<WordImage>? images; // 图片
+  List<WordPhrase>? phrases; // 短语
+  List<WordTense>? tenses; // 时态
+  List<WordSentence>? sentences; // 例句
 
   LookUpResponse({
-    List<TextTranslation> translations,
-    this.word,
+    required List<TextTranslation> translations,
+    required this.word,
     this.tip,
     this.tags,
     this.definitions,
@@ -35,16 +35,14 @@ class LookUpResponse extends TranslateResponse {
         );
 
   factory LookUpResponse.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-
-    List<TextTranslation> translations;
-    List<WordTag> tags;
-    List<WordDefinition> definitions;
-    List<WordPronunciation> pronunciations;
-    List<WordImage> images;
-    List<WordPhrase> phrases;
-    List<WordTense> tenses;
-    List<WordSentence> sentences;
+    List<TextTranslation> translations = List.empty(growable: true);
+    List<WordTag> tags = List.empty(growable: true);
+    List<WordDefinition> definitions = List.empty(growable: true);
+    List<WordPronunciation> pronunciations = List.empty(growable: true);
+    List<WordImage> images = List.empty(growable: true);
+    List<WordPhrase> phrases = List.empty(growable: true);
+    List<WordTense> tenses = List.empty(growable: true);
+    List<WordSentence> sentences = List.empty(growable: true);
 
     if (json['translations'] != null) {
       Iterable l = json['translations'] as List;

@@ -3,8 +3,8 @@ class UniTranslateClientError implements Exception {
   final String message;
 
   UniTranslateClientError({
-    this.code,
-    this.message,
+    required this.code,
+    required this.message,
   });
 
   Map<String, dynamic> toJson() {

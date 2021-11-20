@@ -1,7 +1,7 @@
 class TranslateRequest {
-  final String sourceLanguage;
-  final String targetLanguage;
-  final String text;
+  final String? sourceLanguage;
+  final String? targetLanguage;
+  final String? text;
 
   TranslateRequest({
     this.sourceLanguage,
@@ -10,8 +10,6 @@ class TranslateRequest {
   });
 
   factory TranslateRequest.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-
     return TranslateRequest(
       sourceLanguage: json['sourceLanguage'],
       targetLanguage: json['targetLanguage'],

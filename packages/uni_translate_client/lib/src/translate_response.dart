@@ -4,13 +4,11 @@ class TranslateResponse {
   List<TextTranslation> translations;
 
   TranslateResponse({
-    this.translations,
+    required this.translations,
   });
 
   factory TranslateResponse.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-
-    List<TextTranslation> translations;
+    List<TextTranslation> translations = List.empty(growable: true);
 
     if (json['translations'] != null) {
       Iterable l = json['translations'] as List;

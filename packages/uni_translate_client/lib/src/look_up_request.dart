@@ -1,11 +1,11 @@
 import 'translate_request.dart';
 
 class LookUpRequest extends TranslateRequest {
-  final String word;
+  final String? word;
 
   LookUpRequest({
-    String sourceLanguage,
-    String targetLanguage,
+    String? sourceLanguage,
+    String? targetLanguage,
     this.word,
   }) : super(
           sourceLanguage: sourceLanguage,
@@ -13,8 +13,6 @@ class LookUpRequest extends TranslateRequest {
         );
 
   factory LookUpRequest.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-
     return LookUpRequest(
       sourceLanguage: json['sourceLanguage'],
       targetLanguage: json['targetLanguage'],

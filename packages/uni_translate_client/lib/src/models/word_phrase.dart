@@ -1,7 +1,7 @@
 // 常用短语/词组
 class WordPhrase {
-  final String text;
-  final List<String> translations;
+  final String? text;
+  final List<String>? translations;
 
   WordPhrase({
     this.text,
@@ -9,8 +9,6 @@ class WordPhrase {
   });
 
   factory WordPhrase.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-
     return WordPhrase(
       text: json['text'],
       translations: List<String>.from(json['translations']),

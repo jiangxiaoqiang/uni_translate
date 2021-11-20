@@ -1,16 +1,15 @@
 import 'models/text_detection.dart';
 
 class DetectLanguageResponse {
-  List<TextDetection> detections;
+  List<TextDetection>? detections;
 
   DetectLanguageResponse({
     this.detections,
   });
 
   factory DetectLanguageResponse.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
 
-    List<TextDetection> detections;
+    List<TextDetection> detections  = List.empty(growable: true);
 
     if (json['detections'] != null) {
       Iterable l = json['detections'] as List;

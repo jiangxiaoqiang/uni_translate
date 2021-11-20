@@ -14,17 +14,17 @@ class TranslationEngineConfig {
   final String identifier;
   String type;
   String name;
-  Map<String, dynamic> option;
-  List<String> supportedScopes;
-  List<String> disabledScopes;
+  Map<String, dynamic>? option;
+  List<String>? supportedScopes;
+  List<String>? disabledScopes;
   bool disabled = false;
 
   String get shortId => identifier.substring(0, 4);
 
   TranslationEngineConfig({
-    this.identifier,
-    this.type,
-    this.name,
+    required this.identifier,
+    required this.type,
+    required this.name,
     this.option,
     this.supportedScopes,
     this.disabledScopes,
@@ -32,8 +32,6 @@ class TranslationEngineConfig {
   });
 
   factory TranslationEngineConfig.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-
     return TranslationEngineConfig(
       identifier: json['identifier'],
       type: json['type'],
@@ -69,7 +67,7 @@ abstract class TranslationEngine {
   String get identifier => config.identifier;
   String get type => config.type;
   String get name => config.name;
-  Map<String, dynamic> get option => config.option;
+  Map<String, dynamic>? get option => config.option;
   List<String> get supportedScopes => config.supportedScopes ?? [];
   List<String> get disabledScopes => config.disabledScopes ?? [];
   bool get disabled => config.disabled ?? false;

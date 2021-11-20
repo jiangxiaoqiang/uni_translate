@@ -1,6 +1,6 @@
 class WordSentence {
-  final String text;
-  final List<String> translations;
+  final String? text;
+  final List<String>? translations;
 
   WordSentence({
     this.text,
@@ -8,8 +8,6 @@ class WordSentence {
   });
 
   factory WordSentence.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-
     return WordSentence(
       text: json['text'],
       translations: List<String>.from(json['translations']),
