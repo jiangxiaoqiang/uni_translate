@@ -27,21 +27,21 @@ class CloudoptAITranslationEngine extends TranslationEngine {
 
   @override
   Future<LookUpResponse> lookUp(LookUpRequest request) async {
-    LookUpResponse lookUpResponse = LookUpResponse();
+    LookUpResponse lookUpResponse = LookUpResponse(translations: List.empty(growable: true), word: '');
 
     if (!(request.sourceLanguage == 'en' && request.targetLanguage == 'zh')) {
-      throw UniTranslateClientError(message: 'Not Supported');
+      throw UniTranslateClientError(message: 'Not Supported', code: '');
     }
 
     Uri uri = Uri.https(
       'ai.cloudopt.net',
-      '/api/v1/dict/${Uri.encodeQueryComponent(request.word)}',
+      '/api/v1/dict/${Uri.encodeQueryComponent(request.word!)}',
     );
 
     var response = await http.get(uri);
     Map<String, dynamic> data = json.decode(response.body);
     if (data['error'] != null) {
-      throw UniTranslateClientError(message: data['errorMessage']);
+      throw UniTranslateClientError(message: data['errorMessage'], code: '');
     }
 
     Map<String, dynamic> result = data['result'];
@@ -52,7 +52,7 @@ class CloudoptAITranslationEngine extends TranslationEngine {
       lookUpResponse.definitions = (result['translation'] as List).map((e) {
         String def = e.toString();
         int dotIndex = def.indexOf('. ');
-        String name = dotIndex >= 0 ? def.substring(0, dotIndex + 1) : null;
+        String? name = dotIndex >= 0 ? def.substring(0, dotIndex + 1) : null;
         String value = dotIndex >= 0 ? def.substring(dotIndex + 2) : def;
         List<String> values = value.split(', ');
 
@@ -104,7 +104,7 @@ class CloudoptAITranslationEngine extends TranslationEngine {
           String state = e['state'];
           String value = e['word'];
 
-          String name = map[state];
+          String? name = map[state];
           List<String> values = [value];
 
           return WordTense(
@@ -113,7 +113,7 @@ class CloudoptAITranslationEngine extends TranslationEngine {
           );
         }).toList();
 
-        if (lookUpResponse.tenses.length == 0) {
+        if (lookUpResponse.tenses!.length == 0) {
           lookUpResponse.tenses = null;
         }
       }

@@ -30,8 +30,8 @@ class YoudaoTranslationEngine extends TranslationEngine {
   String get type => kEngineTypeYoudao;
   List<String> get supportedScopes => [kScopeLookUp];
 
-  String get _optionAppKey => option[_kEngineOptionKeyAppKey];
-  String get _optionAppSecret => option[_kEngineOptionKeyAppSecret];
+  String get _optionAppKey => option![_kEngineOptionKeyAppKey];
+  String get _optionAppSecret => option![_kEngineOptionKeyAppSecret];
 
   @override
   Future<DetectLanguageResponse> detectLanguage(DetectLanguageRequest request) {
@@ -41,10 +41,10 @@ class YoudaoTranslationEngine extends TranslationEngine {
 
   @override
   Future<LookUpResponse> lookUp(LookUpRequest request) async {
-    LookUpResponse lookUpResponse = LookUpResponse();
+    LookUpResponse lookUpResponse = LookUpResponse(word: '', translations: List.empty(growable: true));
 
-    String q = request.word;
-    String input = q;
+    String? q = request.word;
+    String input = q!;
     if (q.length > 20)
       input = '${q.substring(0, 10)}${q.length}${q.substring(q.length - 10)}';
 
@@ -103,7 +103,7 @@ class YoudaoTranslationEngine extends TranslationEngine {
         lookUpResponse.definitions = (explains as List).map((e) {
           String def = e.toString();
           int dotIndex = def.indexOf('. ');
-          String name = dotIndex >= 0 ? def.substring(0, dotIndex + 1) : null;
+          String? name = dotIndex >= 0 ? def.substring(0, dotIndex + 1) : null;
           String value = dotIndex >= 0 ? def.substring(dotIndex + 2) : def;
           List<String> values = value.split('；');
 

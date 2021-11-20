@@ -1,25 +1,13 @@
 library translation_engine_reddwarf;
 
 import 'dart:convert';
-import 'dart:ffi';
-
-import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 import 'package:uni_translate_client/uni_translate_client.dart';
 import 'package:wheel/wheel.dart';
 
 const String kEngineTypeReddwarf = 'reddwarf';
-
 const String _kEngineOptionKeyAppKey = 'appKey';
 const String _kEngineOptionKeyAppSecret = 'appSecret';
-
-String _md5(String data) {
-  return md5.convert(utf8.encode(data)).toString();
-}
-
-String _sha256(String data) {
-  return sha256.convert(utf8.encode(data)).toString();
-}
 
 class ReddwarfTranslationEngine extends TranslationEngine {
   static List<String> optionKeys = [
@@ -32,9 +20,6 @@ class ReddwarfTranslationEngine extends TranslationEngine {
   String get type => kEngineTypeReddwarf;
   List<String> get supportedScopes => [kScopeLookUp];
 
-  String get _optionAppKey => option[_kEngineOptionKeyAppKey];
-  String get _optionAppSecret => option[_kEngineOptionKeyAppSecret];
-
   @override
   Future<DetectLanguageResponse> detectLanguage(DetectLanguageRequest request) {
     // TODO: implement detectLanguage
@@ -45,11 +30,11 @@ class ReddwarfTranslationEngine extends TranslationEngine {
 
   @override
   Future<LookUpResponse> lookUp(LookUpRequest request) async {
-    LookUpResponse lookUpResponse = LookUpResponse();
+    LookUpResponse lookUpResponse = LookUpResponse(word: '', translations: List.empty(growable: true));
     Map<String,String> req = {
-      'word': request.word.toLowerCase(),
-      'from': request.sourceLanguage,
-      'to': request.targetLanguage
+      'word': request.word!.toLowerCase(),
+      'from': request.sourceLanguage!,
+      'to': request.targetLanguage!
     };
     var response = await RestClient.postHttp("/dict/word/translate/v1", req);
     if(!RestClient.respSuccess(response) || response.data["result"] == null || response.data["result"].toString().isEmpty){
@@ -127,7 +112,7 @@ class ReddwarfTranslationEngine extends TranslationEngine {
         lookUpResponse.definitions = (explains as List).map((e) {
           String def = e.toString();
           int dotIndex = def.indexOf('. ');
-          String name = dotIndex >= 0 ? def.substring(0, dotIndex + 1) : null;
+          String? name = dotIndex >= 0 ? def.substring(0, dotIndex + 1) : null;
           String value = dotIndex >= 0 ? def.substring(dotIndex + 2) : def;
           List<String> values = value.split('；');
 

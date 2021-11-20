@@ -27,15 +27,15 @@ class BaiduTranslationEngine extends TranslationEngine {
   String get type => kEngineTypeBaidu;
   List<String> get supportedScopes => [kScopeDetectLanguage, kScopeTranslate];
 
-  String get _optionAppId => option[_kEngineOptionKeyAppId];
-  String get _optionAppKey => option[_kEngineOptionKeyAppKey];
+  String get _optionAppId => option![_kEngineOptionKeyAppId];
+  String get _optionAppKey => option![_kEngineOptionKeyAppKey];
 
   @override
   Future<DetectLanguageResponse> detectLanguage(
       DetectLanguageRequest request) async {
     DetectLanguageResponse detectLanguageResponse = DetectLanguageResponse();
 
-    String q = request.texts.first;
+    String q = request.texts!.first;
 
     final salt = Random().nextInt(999999);
     final sign = _md5('$_optionAppId${q}$salt$_optionAppKey');
@@ -81,9 +81,9 @@ class BaiduTranslationEngine extends TranslationEngine {
 
   @override
   Future<TranslateResponse> translate(TranslateRequest request) async {
-    TranslateResponse translateResponse = TranslateResponse();
+    TranslateResponse translateResponse = TranslateResponse(translations: List.empty(growable: true));
 
-    String q = request.text;
+    String? q = request.text;
 
     final salt = Random().nextInt(999999);
     final sign = _md5('$_optionAppId${q}$salt$_optionAppKey');

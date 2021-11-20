@@ -21,8 +21,8 @@ class CaiyunTranslationEngine extends TranslationEngine {
   String get type => kEngineTypeCaiyun;
   List<String> get supportedScopes => [kScopeTranslate];
 
-  String get _optionToken => option[_kEngineOptionKeyToken];
-  String get _optionRequestId => option[_kEngineOptionKeyRequestId];
+  String get _optionToken => option![_kEngineOptionKeyToken];
+  String get _optionRequestId => option![_kEngineOptionKeyRequestId];
 
   @override
   Future<List<LanguagePair>> getSupportedLanguagePairs() {
@@ -46,7 +46,7 @@ class CaiyunTranslationEngine extends TranslationEngine {
 
   @override
   Future<TranslateResponse> translate(TranslateRequest request) async {
-    TranslateResponse translateResponse = TranslateResponse();
+    TranslateResponse translateResponse = TranslateResponse(translations: List.empty(growable: true));
 
     String transType = 'auto';
     if (request.sourceLanguage != null && request.targetLanguage != null) {
@@ -69,7 +69,7 @@ class CaiyunTranslationEngine extends TranslationEngine {
     Map<String, dynamic> data = json.decode(utf8.decode(response.bodyBytes));
 
     if (data['message'] != null) {
-      throw UniTranslateClientError(message: data['message']);
+      throw UniTranslateClientError(message: data['message'], code: '');
     }
 
     translateResponse.translations = (data['target'] as List).map(

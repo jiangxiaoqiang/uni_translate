@@ -19,7 +19,7 @@ class IcibaTranslationEngine extends TranslationEngine {
   String get type => kEngineTypeIciba;
   List<String> get supportedScopes => [kScopeLookUp];
 
-  String get _optionApiKey => option[_kEngineOptionKeyApiKey];
+  String get _optionApiKey => option![_kEngineOptionKeyApiKey];
 
   @override
   Future<DetectLanguageResponse> detectLanguage(DetectLanguageRequest request) {
@@ -28,10 +28,10 @@ class IcibaTranslationEngine extends TranslationEngine {
 
   @override
   Future<LookUpResponse> lookUp(LookUpRequest request) async {
-    LookUpResponse lookUpResponse = LookUpResponse();
+    LookUpResponse lookUpResponse = LookUpResponse(translations: List.empty(growable: true), word: '');
 
     if (!(request.sourceLanguage == 'en' && request.targetLanguage == 'zh')) {
-      throw UniTranslateClientError(message: 'Not Supported');
+      throw UniTranslateClientError(message: 'Not Supported', code: '');
     }
 
     Uri uri = Uri.http(
@@ -95,7 +95,7 @@ class IcibaTranslationEngine extends TranslationEngine {
       lookUpResponse.tenses = (data['exchange'] as Map)
           .keys
           .map((k) {
-            String name = map[k];
+            String? name = map[k];
             dynamic value = (data['exchange'][k]);
             List<String> values = [];
 
@@ -108,17 +108,17 @@ class IcibaTranslationEngine extends TranslationEngine {
               values: values,
             );
           })
-          .where((e) => e.values.length > 0)
+          .where((e) => e.values!.length > 0)
           .toList();
 
-      if (lookUpResponse.tenses.length == 0) {
+      if (lookUpResponse.tenses!.length == 0) {
         lookUpResponse.tenses = null;
       }
     }
 
     if ((lookUpResponse.pronunciations ?? []).isEmpty &&
         (lookUpResponse.definitions ?? []).isEmpty) {
-      throw UniTranslateClientError(message: 'Resource not found.');
+      throw UniTranslateClientError(message: 'Resource not found.', code: '');
     }
 
     return lookUpResponse;

@@ -27,10 +27,10 @@ class SogouTranslationEngine extends TranslationEngine {
   String get type => kEngineTypeSogou;
   List<String> get supportedScopes => [kScopeLookUp];
 
-  String get _optionPid => option[_kEngineOptionKeyPid];
-  String get _optionKey => option[_kEngineOptionKeyKey];
+  String get _optionPid => option![_kEngineOptionKeyPid];
+  String get _optionKey => option![_kEngineOptionKeyKey];
 
-  String _convertLanguageCode(String languageCode) {
+  String? _convertLanguageCode(String languageCode) {
     Map<String, String> map = {
       'zh': 'zh-CHS',
     };
@@ -49,12 +49,12 @@ class SogouTranslationEngine extends TranslationEngine {
 
   @override
   Future<LookUpResponse> lookUp(LookUpRequest request) async {
-    LookUpResponse lookUpResponse = LookUpResponse();
+    LookUpResponse lookUpResponse = LookUpResponse(translations: List.empty(growable: true), word: '');
 
-    String q = request.word;
+    String? q = request.word;
 
-    final from = _convertLanguageCode(request.sourceLanguage) ?? 'auto';
-    final to = _convertLanguageCode(request.targetLanguage);
+    final from = _convertLanguageCode(request.sourceLanguage!) ?? 'auto';
+    final to = _convertLanguageCode(request.targetLanguage!);
     final curtime = (DateTime.now().millisecondsSinceEpoch ~/ 1000);
     final salt = Random().nextInt(999999);
     final sign = _md5('$_optionPid$q$salt$_optionKey');

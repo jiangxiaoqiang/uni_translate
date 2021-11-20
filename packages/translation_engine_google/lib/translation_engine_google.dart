@@ -1,6 +1,7 @@
 library translation_engine_google;
 
 import 'dart:convert';
+import 'dart:html';
 import 'dart:io';
 
 import 'package:crypto/crypto.dart';
@@ -21,7 +22,7 @@ class GoogleTranslationEngine extends TranslationEngine {
   String get type => kEngineTypeGoogle;
   List<String> get supportedScopes => [kScopeDetectLanguage, kScopeTranslate];
 
-  String get _optionApiKey => option[_kEngineOptionKeyApiKey];
+  String get _optionApiKey => option![_kEngineOptionKeyApiKey];
 
   @override
   Future<DetectLanguageResponse> detectLanguage(
@@ -35,7 +36,7 @@ class GoogleTranslationEngine extends TranslationEngine {
         {'key': _optionApiKey},
       ),
       body: json.encode({
-        'q': request.texts.first,
+        'q': request.texts!.first,
       }),
       headers: {
         HttpHeaders.contentTypeHeader: ContentType.json.toString(),
@@ -58,7 +59,7 @@ class GoogleTranslationEngine extends TranslationEngine {
               .map(
                 (e) => TextDetection(
                   detectedLanguage: e['language'],
-                  text: request.texts.first,
+                  text: request.texts!.first,
                 ),
               )
               .toList();
@@ -77,7 +78,7 @@ class GoogleTranslationEngine extends TranslationEngine {
 
   @override
   Future<TranslateResponse> translate(TranslateRequest request) async {
-    TranslateResponse translateResponse = TranslateResponse();
+    TranslateResponse translateResponse = TranslateResponse(translations: List.empty(growable: true));
 
     var response = await http.post(
       Uri.https(

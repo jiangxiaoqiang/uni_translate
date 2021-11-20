@@ -30,8 +30,8 @@ class TencentTranslationEngine extends TranslationEngine {
   String get type => kEngineTypeTencent;
   List<String> get supportedScopes => [kScopeTranslate];
 
-  String get _optionSecretId => option[_kEngineOptionKeySecretId];
-  String get _optionSecretKey => option[_kEngineOptionKeySecretKey];
+  String get _optionSecretId => option![_kEngineOptionKeySecretId];
+  String get _optionSecretKey => option![_kEngineOptionKeySecretKey];
 
   @override
   Future<DetectLanguageResponse> detectLanguage(
@@ -45,7 +45,7 @@ class TencentTranslationEngine extends TranslationEngine {
       'ProjectId': '0',
       'Region': 'ap-guangzhou',
       'SecretId': _optionSecretId,
-      'Text': request.texts.first,
+      'Text': request.texts!.first,
       'Timestamp': '${DateTime.now().millisecondsSinceEpoch ~/ 1000}',
       'Version': '2018-03-21',
     };
@@ -78,7 +78,7 @@ class TencentTranslationEngine extends TranslationEngine {
     detectLanguageResponse.detections = [
       TextDetection(
         detectedLanguage: data['Response']['Lang'],
-        text: request.texts.first,
+        text: request.texts!.first,
       ),
     ];
 
@@ -92,7 +92,7 @@ class TencentTranslationEngine extends TranslationEngine {
 
   @override
   Future<TranslateResponse> translate(TranslateRequest request) async {
-    TranslateResponse translateResponse = TranslateResponse();
+    TranslateResponse translateResponse = TranslateResponse(translations: List.empty(growable: true));
 
     Map<String, String> body = {
       'Action': 'TextTranslate',
@@ -102,8 +102,8 @@ class TencentTranslationEngine extends TranslationEngine {
       'Region': 'ap-guangzhou',
       'SecretId': _optionSecretId,
       'Source': request.sourceLanguage ?? 'auto',
-      'SourceText': request.text,
-      'Target': request.targetLanguage,
+      'SourceText': request.text!,
+      'Target': request.targetLanguage!,
       'Timestamp': '${DateTime.now().millisecondsSinceEpoch ~/ 1000}',
       'Version': '2018-03-21',
     };

@@ -20,7 +20,7 @@ class DeepLTranslationEngine extends TranslationEngine {
   String get type => kEngineTypeDeepL;
   List<String> get supportedScopes => [kScopeTranslate];
 
-  String get _optionAuthKey => option[_kEngineOptionKeyAuthKey];
+  String get _optionAuthKey => option![_kEngineOptionKeyAuthKey];
 
   @override
   Future<DetectLanguageResponse> detectLanguage(DetectLanguageRequest request) {
@@ -34,13 +34,13 @@ class DeepLTranslationEngine extends TranslationEngine {
 
   @override
   Future<TranslateResponse> translate(TranslateRequest request) async {
-    TranslateResponse translateResponse = TranslateResponse();
+    TranslateResponse translateResponse = TranslateResponse(translations: List.empty(growable: true));
 
     Map<String, String> queryParameters = {
       'auth_key': _optionAuthKey,
-      'text': request.text,
-      'source_lang': request.sourceLanguage.toUpperCase(),
-      'target_lang': request.targetLanguage.toUpperCase(),
+      'text': request!.text!,
+      'source_lang': request.sourceLanguage!.toUpperCase(),
+      'target_lang': request.targetLanguage!.toUpperCase(),
     };
     var uri = Uri.https('api.deepl.com', '/v2/translate', queryParameters);
 
@@ -61,7 +61,7 @@ class DeepLTranslationEngine extends TranslationEngine {
     }
 
     if (data['error'] != null) {
-      throw UniTranslateClientError(message: data['errorMessage']);
+      throw UniTranslateClientError(message: data['errorMessage'], code: '');
     }
 
     return translateResponse;
