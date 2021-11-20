@@ -1,10 +1,7 @@
 library translation_engine_google;
 
 import 'dart:convert';
-import 'dart:html';
 import 'dart:io';
-
-import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 import 'package:uni_translate_client/uni_translate_client.dart';
 
