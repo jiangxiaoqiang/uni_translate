@@ -1,7 +1,5 @@
 import 'package:test/test.dart';
 
-import 'package:translation_engine_youdao/translation_engine_reddwarf.dart';
-
 void main() {
   test('adds one to input values', () {
     // final calculator = Calculator();
