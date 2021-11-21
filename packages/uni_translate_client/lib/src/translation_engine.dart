@@ -13,7 +13,7 @@ const kScopeTranslate = 'translate';
 class TranslationEngineConfig {
   final String identifier;
   String type;
-  String name;
+  String? name;
   Map<String, dynamic>? option;
   List<String>? supportedScopes;
   List<String>? disabledScopes;
@@ -24,7 +24,7 @@ class TranslationEngineConfig {
   TranslationEngineConfig({
     required this.identifier,
     required this.type,
-    required this.name,
+    this.name,
     this.option,
     this.supportedScopes,
     this.disabledScopes,
@@ -66,7 +66,7 @@ abstract class TranslationEngine {
 
   String get identifier => config.identifier;
   String get type => config.type;
-  String get name => config.name;
+  String? get name => config.name;
   Map<String, dynamic>? get option => config.option;
   List<String> get supportedScopes => config.supportedScopes ?? [];
   List<String> get disabledScopes => config.disabledScopes ?? [];
